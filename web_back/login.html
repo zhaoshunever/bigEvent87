@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/iconfont.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -30,34 +31,57 @@
       </form>
     </div>
   </div>
+
+  <!-- 进行提示使用的模态框 Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">提示信息！~</h4>
+        </div>
+        <!-- 模态框的内容区域 -->
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- 实现功能 -->
   <script src="./js/jquery-1.12.4.min.js"></script>
   <script src="./tool/config.js"></script>
+  <script src="./tool/user.js"></script>
+  <script src="./js/bootstrap/js/bootstrap.min.js"></script>
   <script>
     $('.input_sub').on('click', function() {
       var user_name = $('.input_txt').val();
       var password = $('.input_pass').val();
       if (user_name.trim() === '' || password.trim() === '') {
-        alert('输入的内容不可以为空！')
+        // alert('输入的内容不可以为空！')
+        $('#myModal').modal('show').find('.modal-body').text('请完整填写表单，输入不可以为空！~');
         return;
       }
-      $.ajax({
-        type: 'post',
-        url: USER_LOGIN,
+      user.login({
         data: {
           user_name: user_name,
-          password: password,
+          password: password
         },
-        success: function(res) {
+        callback: function(res) {
           if (res.code === 200) {
             location.href = './index.html'
           } else {
-            alert('用户名或密码输入错误！')
+            $('#myModal').modal('show').find('.modal-body').text('用户名和密码填写错误,请重新输入！~');
           }
-
         }
-      })
-    })
+      });
+    });
   </script>
 </body>
 
