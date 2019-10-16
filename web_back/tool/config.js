@@ -11,3 +11,12 @@ var USER_INFO = baseUrl + 'admin/getuser';
 var USER_INFO_GET = baseUrl + 'admin/userinfo_get';
 // 用户信息编辑接口
 var USER_INFO_EDIT = baseUrl + 'admin/userinfo_edit';
+
+
+
+
+//文章的接口
+var ARTICLE_GET = baseUrl + '/admin/category_search';
+var ARTICLE_ADD = baseUrl + '/admin/category_add';
+var ARTICLE_EDIT = baseUrl + '/admin/category_edit';
+var ARTICLE_DEL = baseUrl + '/admin/category_delete';
