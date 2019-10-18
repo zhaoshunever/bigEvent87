@@ -104,6 +104,9 @@
     </div>
   </div>
 
+  <script src="./tool/config.js"></script>
+  <script src="./tool/article.js"></script>
+
   <script src="./js/template-web.js"></script>
   <!-- 设置分类结构的魔板 -->
   <script type="text/html" id="category">
@@ -121,32 +124,17 @@
 
   <script>
     //1 分类信息获取和展示
-    $.ajax({
-      url: 'http://localhost:8000/admin/category_search',
-      success: function(res) {
+    article.getCate({
+      callback: function(res) {
         if (res.code === 200) {
-          //  1、字符串拼接方法
-          //   var str = '';
-          //   $.each(res.data, function(i, ele) {
-          //     str += '<tr>\
-          //     <td>' + ele.name + '</td>\
-          //     <td>' + ele.slug + '</td>\
-          //     <td class="text-center">\
-          //       <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>\
-          //       <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>\
-          //     </td>\
-          //   </tr>'
-          //   })
-          //   $('#tbody').html(str);
-          // 2、通过魔板引擎进行字符串的拼接
           var htmlStr = template('category', res);
           $('#tbody').html(htmlStr);
         }
       }
-    })
-
+    });
 
     //功能2：分类数据的新增功能
+
     $('#modal_add').on('click', function() {
       var name = $('#cate_name').val();
       var slug = $('#cate_slug').val();
@@ -157,21 +145,19 @@
         return;
       }
       //发送请求
-      $.ajax({
-        type: 'post',
-        url: 'http://localhost:8000/admin/category_add',
+      article.addCate({
         data: {
           name: name,
           slug: slug
         },
-        success: function(res) {
+        callback: function(res) {
           if (res.code === 200) {
             location.reload();
           } else {
             alert('name和slug不能重复，请重新输入')
           }
         }
-      })
+      });
     });
     //功能3，分类信息的编辑功能
     $('#tbody').on('click', '.edit', function() {
@@ -198,16 +184,14 @@
         alert('请完整填写表单');
         return;
       }
-      $.ajax({
-        type: 'post',
-        url: 'http://localhost:8000/admin/category_edit',
+
+      article.editCate({
         data: {
           id: id,
           name: name,
-          slug,
-          slug
+          slug: slug
         },
-        success: function(res) {
+        callback: function(res) {
           if (res.code === 200) {
             location.reload()
           } else {
@@ -215,8 +199,7 @@
           }
         }
       })
-    })
-
+    });
 
 
     //功能4：删除功能
@@ -226,19 +209,17 @@
       }
       var $tr = $(this).parents('tr');
       var id = $(this).data('id')
-      $.ajax({
-        type: 'post',
-        url: 'http://localhost:8000/admin/category_delete',
+      article.delCate({
         data: {
           id: $(this).data('id')
         },
-        success: function(res) {
+        callback: function(res) {
           if (res.code === 200) {
             $tr.remove();
           }
         }
       })
-    })
+    });
   </script>
 </body>
 

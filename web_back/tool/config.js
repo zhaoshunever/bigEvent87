@@ -16,7 +16,7 @@ var USER_INFO_EDIT = baseUrl + 'admin/userinfo_edit';
 
 
 //文章的接口
-var ARTICLE_GET = baseUrl + '/admin/category_search';
-var ARTICLE_ADD = baseUrl + '/admin/category_add';
-var ARTICLE_EDIT = baseUrl + '/admin/category_edit';
-var ARTICLE_DEL = baseUrl + '/admin/category_delete';
+var ARTICLE_GET = baseUrl + 'admin/category_search';
+var ARTICLE_ADD = baseUrl + 'admin/category_add';
+var ARTICLE_EDIT = baseUrl + 'admin/category_edit';
+var ARTICLE_DEL = baseUrl + 'admin/category_delete';
